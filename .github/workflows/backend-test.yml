@@ -1,0 +1,92 @@
+name: Backend Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-test.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-test.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: memo_user
+          POSTGRES_PASSWORD: memo_password
+          POSTGRES_DB: memo_app_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('backend/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install dependencies
+      run: |
+        cd backend
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run unit tests
+      run: |
+        cd backend
+        pytest tests/ -m "unit" -v
+      env:
+        TEST_DATABASE_URL: sqlite:///./test.db
+
+    - name: Run API tests
+      run: |
+        cd backend
+        pytest tests/ -m "api" -v
+      env:
+        TEST_DATABASE_URL: sqlite:///./test.db
+
+    - name: Run integration tests
+      run: |
+        cd backend
+        pytest tests/ -m "integration" -v
+      env:
+        DATABASE_URL: postgresql://memo_user:memo_password@localhost:5432/memo_app_test
+        TEST_DATABASE_URL: postgresql://memo_user:memo_password@localhost:5432/memo_app_test
+
+    - name: Run all tests with coverage
+      run: |
+        cd backend
+        pip install pytest-cov
+        pytest tests/ --cov=app --cov-report=xml --cov-report=term-missing
+      env:
+        DATABASE_URL: postgresql://memo_user:memo_password@localhost:5432/memo_app_test
+        TEST_DATABASE_URL: postgresql://memo_user:memo_password@localhost:5432/memo_app_test
+
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./backend/coverage.xml
+        flags: backend
+        name: backend-coverage

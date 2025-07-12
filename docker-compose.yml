@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: memo_postgres
+    environment:
+      POSTGRES_DB: memo_app
+      POSTGRES_USER: memo_user
+      POSTGRES_PASSWORD: memo_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U memo_user -d memo_app"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - memo_network
+
+  backend:
+    build: ./backend
+    container_name: memo_backend
+    environment:
+      DATABASE_URL: postgresql://memo_user:memo_password@postgres:5432/memo_app
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+      API_RELOAD: "true"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - memo_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "/app/test_api.py"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  postgres_data:
+
+networks:
+  memo_network:
+    driver: bridge
