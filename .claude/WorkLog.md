@@ -126,3 +126,73 @@ pytest -m integration    # 統合テスト
 # Docker実行
 docker-compose exec backend pytest
 ```
+
+### フロントエンド環境構築
+
+#### 完了したタスク
+- ✅ Next.js + TypeScript プロジェクトの作成
+- ✅ MUI (Material-UI) + Recoil の導入
+- ✅ APIクライアント（axios）の実装
+- ✅ カスタムフック（useApi）の作成
+- ✅ APIテスト用UIコンポーネントの実装
+- ✅ Jest + Testing Library によるテスト環境構築
+- ✅ Docker化（開発・本番用Dockerfile）
+- ✅ GitHub Actions CI/CDパイプライン
+
+#### 作成したフロントエンドファイル
+- `frontend/package.json` - 依存関係とスクリプト定義
+- `frontend/next.config.js` - Next.js設定
+- `frontend/tsconfig.json` - TypeScript設定
+- `frontend/jest.config.js` - Jest設定
+- `frontend/src/types/api.ts` - API型定義
+- `frontend/src/lib/api.ts` - APIクライアント実装
+- `frontend/src/hooks/useApi.ts` - API呼び出し用カスタムフック
+- `frontend/src/components/ApiTestCard.tsx` - APIテスト表示コンポーネント
+- `frontend/src/pages/index.tsx` - メインページ（APIテスト画面）
+- `frontend/src/pages/_app.tsx` - アプリケーションルート
+
+#### テストファイル
+- `frontend/src/__tests__/components/ApiTestCard.test.tsx`
+- `frontend/src/__tests__/lib/api.test.ts`
+- `frontend/src/__tests__/hooks/useApi.test.ts`
+- `frontend/src/__tests__/pages/index.test.tsx`
+
+#### Docker設定
+- `frontend/Dockerfile` - 本番用
+- `frontend/Dockerfile.dev` - 開発用
+- `frontend/.dockerignore` - Docker除外設定
+
+#### 機能
+- 5つのバックエンドAPIエンドポイントのテスト
+- レスポンシブデザイン（MUI使用）
+- リアルタイムAPI状態表示
+- エラーハンドリング
+- TypeScript完全対応
+
+#### Docker Compose統合
+- フロントエンドサービスを追加
+- バックエンドとの連携設定
+- 開発用ホットリロード対応
+
+#### GitHub Actions
+- `.github/workflows/frontend-test.yml` - フロントエンドCI/CD
+  - リンター実行
+  - ユニットテスト
+  - カバレッジレポート
+  - ビルド確認
+
+#### 利用可能なコマンド
+```bash
+# 開発サーバー起動
+cd frontend && npm run dev
+
+# テスト実行
+npm test
+npm run test:coverage
+
+# Docker起動
+docker-compose up -d
+
+# フロントエンドアクセス
+http://localhost:3000
+```

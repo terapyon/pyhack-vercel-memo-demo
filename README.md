@@ -21,6 +21,7 @@ docker-compose up -d
 ```
 
 3. サービスの確認
+- フロントエンド: http://localhost:3000
 - バックエンドAPI: http://localhost:8000
 - PostgreSQL: localhost:5432
 
@@ -60,15 +61,35 @@ docker-compose down -v
 
 ## 技術スタック
 
+- **フロントエンド**: Next.js + TypeScript + MUI + Recoil
 - **バックエンド**: FastAPI + Python
 - **データベース**: PostgreSQL
 - **コンテナ**: Docker + Docker Compose
-- **テスト**: pytest
+- **テスト**: Jest (Frontend) + pytest (Backend)
 - **CI/CD**: GitHub Actions
 
 ## テスト
 
-### ローカルでのテスト実行
+### フロントエンドテスト
+
+```bash
+# frontendディレクトリに移動
+cd frontend
+
+# 依存関係をインストール
+npm ci
+
+# 全テストを実行
+npm test
+
+# カバレッジ付きでテスト実行
+npm run test:coverage
+
+# リンターを実行
+npm run lint
+```
+
+### バックエンドテスト
 
 ```bash
 # backendディレクトリに移動
@@ -92,15 +113,19 @@ pytest --cov=app --cov-report=html
 ### Dockerでのテスト実行
 
 ```bash
-# コンテナ内でテスト実行
+# フロントエンドテスト
+docker-compose exec frontend npm test
+
+# バックエンドテスト
 docker-compose exec backend pytest
 
-# テスト結果を確認
+# API動作確認
 docker-compose exec backend python test_api.py
 ```
 
 ### GitHub Actions
 
+- **Frontend Tests**: フロントエンドのユニットテスト・ビルド確認
 - **Backend Tests**: バックエンドの単体・統合テスト
 - **Docker Build**: Docker環境でのビルドとテスト
 
