@@ -45,16 +45,18 @@ jobs:
     - name: Run tests
       run: |
         cd frontend
-        npm test
+        npm test -- --verbose --no-cache
       env:
         CI: true
+        NODE_ENV: test
 
     - name: Run tests with coverage
       run: |
         cd frontend
-        npm run test:coverage
+        npm run test:coverage -- --verbose --no-cache
       env:
         CI: true
+        NODE_ENV: test
 
     - name: Build application
       run: |
