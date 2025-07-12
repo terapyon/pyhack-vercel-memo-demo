@@ -13,14 +13,12 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   testEnvironment: 'jsdom',
   moduleNameMapper: {
-    // CI環境では詳細なマッピングを使用
-    ...(isCI ? {
-      '^@/components/(.*)$': '<rootDir>/src/components/$1',
-      '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
-      '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
-      '^@/types/(.*)$': '<rootDir>/src/types/$1',
-      '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
-    } : {}),
+    // Use consistent path mapping for both CI and local environments
+    '^@/components/(.*)$': '<rootDir>/src/components/$1',
+    '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
+    '^@/types/(.*)$': '<rootDir>/src/types/$1',
+    '^@/pages/(.*)$': '<rootDir>/src/pages/$1',
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   collectCoverageFrom: [
