@@ -83,3 +83,46 @@ docker-compose up -d
 - [ ] CRUD APIエンドポイントの実装
 - [ ] 認証機能の実装
 - [ ] フロントエンド環境の構築
+
+### テスト環境構築
+
+#### 完了したタスク
+- ✅ pytest テストフレームワークの導入
+- ✅ テスト用データベース設定（SQLite for unit tests）
+- ✅ ユニットテスト、APIテスト、統合テストの作成
+- ✅ GitHub Actions CI/CDパイプラインの構築
+- ✅ Docker環境でのテスト実行
+
+#### 作成したテストファイル
+- `backend/pytest.ini` - pytest設定
+- `backend/tests/conftest.py` - テスト用フィクスチャ
+- `backend/tests/test_main.py` - APIエンドポイントテスト
+- `backend/tests/test_models.py` - データモデルテスト
+- `backend/tests/test_config.py` - 設定テスト
+
+#### GitHub Actions ワークフロー
+- `.github/workflows/backend-test.yml` - バックエンドテスト
+  - ユニットテスト（SQLite）
+  - APIテスト（SQLite）
+  - 統合テスト（PostgreSQL）
+  - カバレッジレポート
+- `.github/workflows/docker-build.yml` - Docker環境テスト
+
+#### テストカバレッジ
+- データモデル（User, MemoFolder, Memo）
+- APIエンドポイント（全5つ）
+- 設定管理
+- データベースリレーションシップ
+
+#### 利用可能なテストコマンド
+```bash
+# ローカル実行
+cd backend
+pytest                    # 全テスト
+pytest -m unit           # ユニットテスト
+pytest -m api            # APIテスト
+pytest -m integration    # 統合テスト
+
+# Docker実行
+docker-compose exec backend pytest
+```

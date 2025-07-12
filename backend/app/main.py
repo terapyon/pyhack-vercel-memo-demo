@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
+from sqlalchemy import text
 from app.core.config import settings
 from app.db.database import get_db, test_database_connection
 
@@ -48,7 +49,7 @@ async def check_database_session(db: Session = Depends(get_db)):
     """データベースセッション確認"""
     try:
         # 簡単なクエリでセッションをテスト
-        result = db.execute("SELECT 1 as test")
+        result = db.execute(text("SELECT 1 as test"))
         test_value = result.fetchone()
         return {
             "status": "success", 

@@ -63,3 +63,45 @@ docker-compose down -v
 - **バックエンド**: FastAPI + Python
 - **データベース**: PostgreSQL
 - **コンテナ**: Docker + Docker Compose
+- **テスト**: pytest
+- **CI/CD**: GitHub Actions
+
+## テスト
+
+### ローカルでのテスト実行
+
+```bash
+# backendディレクトリに移動
+cd backend
+
+# 依存関係をインストール
+pip install -r requirements.txt
+
+# 全テストを実行
+pytest
+
+# マーカー別にテスト実行
+pytest -m unit       # ユニットテスト
+pytest -m api        # APIテスト
+pytest -m integration # インテグレーションテスト
+
+# カバレッジ付きでテスト実行
+pytest --cov=app --cov-report=html
+```
+
+### Dockerでのテスト実行
+
+```bash
+# コンテナ内でテスト実行
+docker-compose exec backend pytest
+
+# テスト結果を確認
+docker-compose exec backend python test_api.py
+```
+
+### GitHub Actions
+
+- **Backend Tests**: バックエンドの単体・統合テスト
+- **Docker Build**: Docker環境でのビルドとテスト
+
+プッシュやプルリクエスト時に自動実行されます。
