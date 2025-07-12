@@ -8,10 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --passWithNoTests",
-    "test:ci": "jest --config=jest.config.ci.js --passWithNoTests --runInBand",
+    "test:ci": "jest --passWithNoTests --runInBand",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --passWithNoTests",
-    "test:coverage:ci": "jest --config=jest.config.ci.js --coverage --passWithNoTests --runInBand"
+    "test:coverage:ci": "jest --coverage --passWithNoTests --runInBand"
   },
   "dependencies": {
     "next": "14.0.3",
