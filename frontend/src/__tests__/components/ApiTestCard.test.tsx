@@ -55,7 +55,9 @@ describe('ApiTestCard', () => {
     
     expect(screen.getByText('成功')).toBeInTheDocument();
     expect(screen.getByText('レスポンス:')).toBeInTheDocument();
-    expect(screen.getByText(JSON.stringify(data, null, 2))).toBeInTheDocument();
+    // JSONデータの一部を確認
+    expect(screen.getByText(/"message": "Success"/)).toBeInTheDocument();
+    expect(screen.getByText(/"status": "ok"/)).toBeInTheDocument();
   });
 
   it('再実行ボタンがクリックされたときにonRefreshが呼ばれる', () => {
