@@ -8,9 +8,9 @@ import {
   Box,
   Paper,
 } from '@mui/material';
-import { ApiTestCard } from '../components/ApiTestCard';
-import { useApi } from '../hooks/useApi';
-import { apiService } from '../lib/api';
+import { ApiTestCard } from '@/components/ApiTestCard';
+import { useApi } from '@/hooks/useApi';
+import { apiService } from '@/lib/api';
 
 export default function Home() {
   // 各APIエンドポイントのhook
