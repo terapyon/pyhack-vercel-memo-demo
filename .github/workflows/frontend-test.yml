@@ -45,7 +45,7 @@ jobs:
     - name: Run tests
       run: |
         cd frontend
-        npm test -- --verbose --no-cache
+        npm run test:ci
       env:
         CI: true
         NODE_ENV: test
@@ -53,7 +53,7 @@ jobs:
     - name: Run tests with coverage
       run: |
         cd frontend
-        npm run test:coverage -- --verbose --no-cache
+        npm run test:coverage:ci
       env:
         CI: true
         NODE_ENV: test
