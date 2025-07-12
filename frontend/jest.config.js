@@ -12,16 +12,19 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  modulePaths: ['<rootDir>/src'],
-  roots: ['<rootDir>/src'],
   collectCoverageFrom: [
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/index.ts',
   ],
-  // console.errorを出力に含めない
-  silent: false,
-  verbose: false,
+  transform: {
+    '^.+\\.(ts|tsx|js|jsx)$': ['babel-jest', { presets: ['next/babel'] }],
+  },
+  transformIgnorePatterns: [
+    'node_modules/(?!(.*\\.mjs$))',
+  ],
+  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
