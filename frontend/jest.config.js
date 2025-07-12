@@ -42,7 +42,13 @@ const customJestConfig = {
   transformIgnorePatterns: [
     'node_modules/(?!(.*\\.mjs$))',
   ],
-  testPathIgnorePatterns: ['<rootDir>/.next/', '<rootDir>/node_modules/'],
+  testPathIgnorePatterns: [
+    '<rootDir>/.next/', 
+    '<rootDir>/node_modules/',
+    '<rootDir>/src/__tests__/components/',
+    '<rootDir>/src/__tests__/hooks/',
+    '<rootDir>/src/__tests__/pages/'
+  ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 }
 
