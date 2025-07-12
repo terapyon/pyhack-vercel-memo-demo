@@ -11,7 +11,8 @@
     "test:ci": "jest --passWithNoTests --runInBand",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --passWithNoTests",
-    "test:coverage:ci": "jest --coverage --passWithNoTests --runInBand"
+    "test:coverage:ci": "jest --coverage --passWithNoTests --runInBand",
+    "vercel-build": "next build"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

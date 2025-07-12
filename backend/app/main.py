@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import text
 from app.core.config import settings
 from app.db.database import get_db, test_database_connection
+import os
 
 app = FastAPI(
     title="Memo App API",
@@ -11,10 +12,14 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# CORS設定
+# CORS設定 - Vercel環境対応
+cors_origins = settings.allowed_origins.copy()
+if settings.is_vercel and os.getenv("FRONTEND_URL"):
+    cors_origins.append(os.getenv("FRONTEND_URL"))
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.allowed_origins,
+    allow_origins=cors_origins if not settings.is_vercel else ["*"],  # Vercelでは広範囲に許可
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
