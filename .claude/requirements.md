@@ -60,12 +60,12 @@
 ### フロントエンド
 - **フレームワーク**: Next.js
 - **言語**: TypeScript
-- **スタイリング**: CSS Modules または Tailwind CSS
-- **状態管理**: React hooks または Zustand
+- **スタイリング**: MUI
+- **状態管理**: Recoil
 
 ### インフラストラクチャ
 - **デプロイ**: Vercel
-- **データベースホスティング**: Vercel Postgres または Supabase
+- **データベースホスティング**: Vercel Postgres
 
 ## 非機能要件
 
