@@ -31,8 +31,55 @@
 3. **メモ** - タイトル、本文、作成日、更新日を持つ
 
 #### 次のステップ
-- [ ] プロジェクト構造の設計
-- [ ] 依存関係の設定（package.json等）
-- [ ] データベース設計の詳細化
-- [ ] API エンドポイントの設計
+- [x] プロジェクト構造の設計
+- [x] 依存関係の設定（requirements.txt等）
+- [x] データベース設計の詳細化
+- [x] API エンドポイントの基本設計
 - [ ] フロントエンド コンポーネント設計
+
+### バックエンドAPI環境構築
+
+#### 完了したタスク
+- ✅ FastAPI プロジェクト構造の作成
+- ✅ PostgreSQL + FastAPI用のDocker Compose設定
+- ✅ データベースモデルの実装（User, MemoFolder, Memo）
+- ✅ 基本的なAPIエンドポイントの実装
+- ✅ Docker化（Dockerfile + docker-compose.yml）
+
+#### 作成したファイル
+- `backend/Dockerfile` - FastAPI用Dockerファイル
+- `backend/.dockerignore` - Docker除外設定
+- `docker-compose.yml` - PostgreSQL + Backend統合環境
+- `backend/requirements.txt` - Python依存関係
+- `backend/app/main.py` - FastAPIメインアプリケーション
+- `backend/app/core/config.py` - 設定管理
+- `backend/app/db/database.py` - データベース接続
+- `backend/app/models/` - データモデル（User, MemoFolder, Memo）
+
+#### Docker Compose構成
+- **postgres**: PostgreSQL 15
+  - ポート: 5432
+  - データベース: memo_app
+  - ユーザ: memo_user
+- **backend**: FastAPI
+  - ポート: 8000
+  - ホットリロード対応
+  - PostgreSQLとのネットワーク接続
+
+#### 起動方法
+```bash
+docker-compose up -d
+```
+
+#### 利用可能なエンドポイント
+- `GET /` - API動作確認
+- `GET /health` - ヘルスチェック
+- `GET /api/test` - 設定確認
+- `GET /api/db/test` - DB接続テスト
+- `GET /api/db/check` - DBセッション確認
+
+#### 次のステップ
+- [ ] データベーステーブルの作成（Alembicマイグレーション）
+- [ ] CRUD APIエンドポイントの実装
+- [ ] 認証機能の実装
+- [ ] フロントエンド環境の構築
