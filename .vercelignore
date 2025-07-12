@@ -1,0 +1,9 @@
+backend/
+docker-compose.yml
+*.log
+node_modules
+.next
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
