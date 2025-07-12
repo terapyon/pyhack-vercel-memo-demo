@@ -17,6 +17,9 @@ const customJestConfig = {
     '!src/**/*.d.ts',
     '!src/**/index.ts',
   ],
+  // console.errorを出力に含めない
+  silent: false,
+  verbose: false,
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

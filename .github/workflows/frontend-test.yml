@@ -46,11 +46,15 @@ jobs:
       run: |
         cd frontend
         npm test
+      env:
+        CI: true
 
     - name: Run tests with coverage
       run: |
         cd frontend
         npm run test:coverage
+      env:
+        CI: true
 
     - name: Build application
       run: |
